@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Launch · Debug · Succeed</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="scene">
+      <div class="phase-text" id="phaseText">LAUNCH</div>
+
+      <div class="gameboy-wrapper">
+        <img
+          class="gameboy-frame"
+          src="assets/imgs/gameboy.png"
+          alt="gameboy"
+        />
+
+        <button
+          class="action-btn"
+          id="actionBtn"
+          title="Click to debug!"
+        ></button>
+
+        <div class="screen" id="screen">
+          <img class="cloud cloud-left" src="assets/imgs/cloud.png" alt="" />
+          <img class="cloud cloud-right" src="assets/imgs/cloud.png" alt="" />
+
+          <img class="bug bug-1" id="bug1" src="assets/imgs/bug.png" alt="bug" />
+          <img class="bug bug-2" id="bug2" src="assets/imgs/bug.png" alt="bug" />
+          <img class="bug bug-3" id="bug3" src="assets/imgs/bug.png" alt="bug" />
+
+          <img
+            class="explode hidden"
+            id="explode"
+            src="assets/imgs/explode.png"
+            alt="explode"
+          />
+
+          <img
+            class="hit hidden"
+            id="hit"
+            src="assets/imgs/hit.png"
+            alt="hit"
+          />
+
+          <img
+            class="plane"
+            id="plane"
+            src="assets/imgs/plane.png"
+            alt="plane"
+          />
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

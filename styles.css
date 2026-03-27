@@ -1,0 +1,255 @@
+@font-face {
+  font-family: "Silkscreen";
+  src: url("assets/fonts/Silkscreen-Regular.ttf") format("truetype");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Silkscreen";
+  src: url("assets/fonts/Silkscreen-Bold.ttf") format("truetype");
+  font-weight: 700;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #e8ede8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-family: "Silkscreen", monospace;
+  overflow: hidden;
+}
+
+.scene {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  user-select: none;
+}
+
+.phase-text {
+  font-family: "Silkscreen", monospace;
+  font-weight: 700;
+  font-size: 3rem;
+  letter-spacing: 0.25em;
+  color: #1a1a1a;
+  text-align: center;
+  margin-bottom: 12px;
+  image-rendering: pixelated;
+  transition: opacity 0.12s;
+}
+
+.gameboy-wrapper {
+  position: relative;
+  width: 414px;
+}
+
+.gameboy-frame {
+  width: 100%;
+  height: auto;
+  display: block;
+  image-rendering: pixelated;
+  /* keep pixel art crisp */
+  -ms-interpolation-mode: nearest-neighbor;
+}
+
+.action-btn {
+  position: absolute;
+  top: 60%;
+  right: 4%;
+  width: 30%;
+  height: 20%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  outline: none;
+  z-index: 10;
+}
+
+.action-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+}
+
+.action-btn:active {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.action-btn:disabled {
+  cursor: default;
+  pointer-events: none;
+}
+
+.screen {
+  position: absolute;
+  top: 10%;
+  left: 15%;
+  width: 68%;
+  height: 40%;
+  overflow: hidden;
+  image-rendering: pixelated;
+}
+
+.cloud {
+  position: absolute;
+  width: 30%;
+  image-rendering: pixelated;
+  opacity: 0.6;
+}
+
+.cloud-left {
+  top: 30%;
+  left: 2%;
+  animation: cloudDrift 6s ease-in-out infinite alternate;
+}
+
+.cloud-right {
+  top: 10%;
+  right: 2%;
+  animation: cloudDrift 8s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes cloudDrift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(8px);
+  }
+}
+
+
+.bug {
+  position: absolute;
+  image-rendering: pixelated;
+}
+
+
+.bug-1 {
+  width: 15%;
+  top: 20%;
+  left: 20%;
+  animation: bugFloat1 2.4s ease-in-out infinite;
+}
+
+
+.bug-2 {
+  width: 19%;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: bugFloat2 2s ease-in-out infinite;
+}
+
+
+.bug-3 {
+  width: 15%;
+  top: 30%;
+  right: 12%;
+  animation: bugFloat3 2.8s ease-in-out infinite;
+}
+
+@keyframes bugFloat1 {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+@keyframes bugFloat2 {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-6px);
+  }
+}
+@keyframes bugFloat3 {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.plane {
+  position: absolute;
+  width: 22%;
+  image-rendering: pixelated;
+  bottom: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: planeBob 1.8s ease-in-out infinite;
+}
+
+@keyframes planeBob {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-4px);
+  }
+}
+
+.hit {
+  position: absolute;
+  width: 70%;
+  image-rendering: pixelated;
+  left: 50%;
+  bottom: 12%;
+  transform: translateX(-50%);
+}
+
+.explode {
+  position: absolute;
+  width: 22%;
+  image-rendering: pixelated;
+  top: 6%;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: explodePop 0.3s steps(1) forwards;
+}
+
+@keyframes explodePop {
+  0% {
+    transform: translateX(-50%) scale(0.5);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(-50%) scale(1.4);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+
+@media (max-width: 414px) {
+  .phase-text {
+    font-size: 2rem;
+  }
+
+  .gameboy-wrapper {
+    width: 300px;
+  }
+}
