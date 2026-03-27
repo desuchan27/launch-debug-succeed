@@ -57,8 +57,9 @@ body {
   height: auto;
   display: block;
   image-rendering: pixelated;
-  /* keep pixel art crisp */
   -ms-interpolation-mode: nearest-neighbor;
+  position: relative;
+  z-index: 5;
 }
 
 .action-btn {
@@ -97,6 +98,8 @@ body {
   height: 40%;
   overflow: hidden;
   image-rendering: pixelated;
+  background-color: #e8ede8;
+  z-index: 1;
 }
 
 .cloud {
@@ -119,71 +122,70 @@ body {
 }
 
 @keyframes cloudDrift {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(8px);
-  }
+  from { transform: translateX(0); }
+  to { transform: translateX(8px); }
 }
-
 
 .bug {
   position: absolute;
   image-rendering: pixelated;
+  opacity: 0;
+  top: -30%; 
+  transition: top 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+  pointer-events: none;
 }
 
+.bug-1.show { top: 20%; opacity: 1; }
+.bug-2.show { top: 5%; opacity: 1; }
+.bug-3.show { top: 30%; opacity: 1; }
 
 .bug-1 {
   width: 15%;
-  top: 20%;
   left: 20%;
+  transition-delay: 0s; 
   animation: bugFloat1 2.4s ease-in-out infinite;
 }
 
-
 .bug-2 {
   width: 19%;
-  top: 5%;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 40.5%;
+  transition-delay: 0.15s; 
   animation: bugFloat2 2s ease-in-out infinite;
 }
 
-
 .bug-3 {
   width: 15%;
-  top: 30%;
   right: 12%;
+  transition-delay: 0.3s; 
   animation: bugFloat3 2.8s ease-in-out infinite;
 }
 
 @keyframes bugFloat1 {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-5px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
 }
 @keyframes bugFloat2 {
-  0%,
-  100% {
-    transform: translateX(-50%) translateY(0);
-  }
-  50% {
-    transform: translateX(-50%) translateY(-6px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
 }
 @keyframes bugFloat3 {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-4px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.explode {
+  position: absolute;
+  image-rendering: pixelated;
+}
+
+.explode-1 { width: 15%; top: 20%; left: 20%; }
+.explode-2 { width: 19%; top: 5%; left: 40.5%; }
+.explode-3 { width: 15%; top: 30%; right: 12%; }
+
+@keyframes explodePop {
+  0% { transform: scale(0.5); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
 }
 
 .plane {
@@ -194,16 +196,16 @@ body {
   left: 50%;
   transform: translateX(-50%);
   animation: planeBob 1.8s ease-in-out infinite;
+  transition: bottom 0.8s cubic-bezier(0.45, 0.05, 0.55, 0.95); 
+}
+
+.plane.slide-out {
+  bottom: -40%; 
 }
 
 @keyframes planeBob {
-  0%,
-  100% {
-    transform: translateX(-50%) translateY(0);
-  }
-  50% {
-    transform: translateX(-50%) translateY(-4px);
-  }
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-4px); }
 }
 
 .hit {
@@ -215,41 +217,24 @@ body {
   transform: translateX(-50%);
 }
 
-.explode {
-  position: absolute;
-  width: 22%;
-  image-rendering: pixelated;
-  top: 6%;
-  left: 50%;
-  transform: translateX(-50%);
-  animation: explodePop 0.3s steps(1) forwards;
-}
-
-@keyframes explodePop {
-  0% {
-    transform: translateX(-50%) scale(0.5);
-    opacity: 1;
-  }
-  50% {
-    transform: translateX(-50%) scale(1.4);
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(-50%) scale(1);
-    opacity: 1;
-  }
-}
-
 .hidden {
   display: none !important;
 }
 
-@media (max-width: 414px) {
-  .phase-text {
-    font-size: 2rem;
-  }
+.cloud.looping {
+  animation: cloudScrollVertical 2s linear infinite !important;
+}
 
-  .gameboy-wrapper {
-    width: 300px;
-  }
+.cloud-right.looping {
+  animation-delay: -1s; 
+}
+
+@keyframes cloudScrollVertical {
+  from { top: -50%; }
+  to { top: 120%; }
+}
+
+@media (max-width: 414px) {
+  .phase-text { font-size: 2rem; }
+  .gameboy-wrapper { width: 300px; }
 }
