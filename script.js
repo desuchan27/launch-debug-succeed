@@ -1,5 +1,7 @@
 const phaseText = document.getElementById("phaseText");
 const actionBtn = document.getElementById("actionBtn");
+const resetBtn = document.getElementById("resetBtn");
+const gameboyWrapper = document.getElementById("gameboyWrapper");
 const bugEls = [
   document.getElementById("bug1"),
   document.getElementById("bug2"),
@@ -12,6 +14,7 @@ const explodeEls = [
 ];
 const hitEl = document.getElementById("hit");
 const screen = document.getElementById("screen");
+const plane = document.getElementById("plane");
 
 let state = "launch";
 
@@ -23,11 +26,13 @@ function setPhase(text) {
   }, 150);
 }
 
+
 actionBtn.addEventListener("click", () => {
   if (state !== "launch") return;
   state = "debug";
 
   actionBtn.disabled = true;
+  resetBtn.classList.add("hidden"); 
   setPhase("DEBUG");
 
   document.querySelector(".cloud-left").classList.add("looping");
@@ -36,10 +41,43 @@ actionBtn.addEventListener("click", () => {
   fireHitSequence();
 });
 
+
+resetBtn.addEventListener("click", () => {
+  if (state !== "succeed") return; 
+
+  gameboyWrapper.classList.add("shake-hard");
+  screen.classList.add("glitch-flash");
+
+
+  setPhase("LAUNCH");
+
+
+  plane.style.transition = 'none';
+  plane.classList.remove("slide-out");
+  
+  bugEls.forEach(b => {
+    b.style.transition = 'none'; 
+    b.classList.remove("show");
+    b.classList.remove("hidden");
+  });
+
+  setTimeout(() => {
+    gameboyWrapper.classList.remove("shake-hard");
+    screen.classList.remove("glitch-flash");
+    
+    plane.style.transition = '';
+    bugEls.forEach(b => b.style.transition = '');
+    
+    state = "launch";
+    actionBtn.disabled = false;
+    resetBtn.classList.add("hidden");
+  }, 400);
+});
+
 function fireHitSequence() {
   const screenH = screen.offsetHeight;
   const startBottom = screenH * 0.12;
-  const pauseBottom = screenH * 0.4; // Mid-air pause point
+  const pauseBottom = screenH * 0.4; 
   const endBottom = screenH * 0.8;
 
   hitEl.style.bottom = startBottom + "px";
@@ -50,25 +88,21 @@ function fireHitSequence() {
   hitEl.style.transition = "none";
   hitEl.classList.remove("hidden");
 
-  hitEl.getBoundingClientRect();
+  hitEl.getBoundingClientRect(); 
 
-  // Shoot halfway and pause
   const launchDuration = 400;
 
   hitEl.style.transition = `bottom ${launchDuration}ms ease-out`;
   hitEl.style.bottom = pauseBottom + "px";
 
   setTimeout(() => {
-    const plane = document.getElementById("plane");
     plane.classList.add("slide-out");
 
     const cloudLoopDelay = 2000;
 
     setTimeout(() => {
-      // Bugs drop in from the top
       bugEls.forEach((b) => b.classList.add("show"));
 
-      // Wait 1200ms for bugs to fully drop in and bounce before striking
       const aimDelay = 1200;
 
       setTimeout(() => {
@@ -87,7 +121,6 @@ function fireHitSequence() {
 }
 
 function showExplode() {
-  // Hide all bugs
   bugEls.forEach((b) => {
     b.classList.remove("show");
     b.classList.add("hidden");
@@ -96,7 +129,7 @@ function showExplode() {
   explodeEls.forEach((ex) => {
     ex.classList.remove("hidden");
     ex.style.animation = "none";
-    ex.getBoundingClientRect();
+    ex.getBoundingClientRect(); 
     ex.style.animation = "explodePop 0.3s steps(1) forwards";
   });
 
@@ -114,7 +147,6 @@ function showExplode() {
       });
     }, 520);
 
-    const plane = document.getElementById("plane");
     plane.classList.remove("slide-out");
 
     setTimeout(() => {
@@ -123,6 +155,9 @@ function showExplode() {
 
       state = "succeed";
       setPhase("SUCCEED");
+      
+      resetBtn.classList.remove("hidden");
+      
     }, 800);
   }, 600);
 }

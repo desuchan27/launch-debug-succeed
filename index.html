@@ -10,17 +10,22 @@
     <div class="scene">
       <div class="phase-text" id="phaseText">LAUNCH</div>
 
-      <div class="gameboy-wrapper">
+      <div class="gameboy-wrapper" id="gameboyWrapper">
         <img
           class="gameboy-frame"
           src="assets/imgs/gameboy.png"
           alt="gameboy"
         />
-        
+
+        <button
+          class="reset-btn hidden"
+          id="resetBtn"
+          title="Reset System"
+        ></button>
         <button
           class="action-btn"
           id="actionBtn"
-          title="Click to debug!"
+          title="Click to start!"
         ></button>
 
         <div class="screen" id="screen">

@@ -64,10 +64,10 @@ body {
 
 .action-btn {
   position: absolute;
-  top: 60%;
-  right: 4%;
-  width: 30%;
-  height: 20%;
+  top:55%;
+  right: 10%;
+  width: 15%;
+  height: 12%;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -88,6 +88,47 @@ body {
 .action-btn:disabled {
   cursor: default;
   pointer-events: none;
+}
+
+.reset-btn {
+  position: absolute;
+  top: 63%;
+  right: 26%; 
+  width: 15%;
+  height: 10%;
+  cursor: pointer;
+  z-index: 10;
+  background-color: transparent;
+  opacity: 0;
+}
+
+.reset-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+
+.shake-hard {
+  animation: shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes shake {
+  10%, 90% { transform: translate3d(-2px, 0, 0); }
+  20%, 80% { transform: translate3d(4px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-8px, 0, 0); }
+  40%, 60% { transform: translate3d(8px, 0, 0); }
+}
+
+.glitch-flash {
+  animation: staticGlitch 0.3s forwards;
+}
+
+@keyframes staticGlitch {
+  0% { filter: invert(0) contrast(1); }
+  20% { filter: invert(1) contrast(5); }
+  40% { filter: invert(0) contrast(2) hue-rotate(90deg); }
+  60% { filter: invert(1) contrast(5) blur(2px); }
+  80% { filter: invert(0) contrast(1); transform: translateX(5px); }
+  100% { filter: invert(0) contrast(1); transform: translateX(0); }
 }
 
 .screen {
