@@ -11,78 +11,31 @@
       <div class="phase-text" id="phaseText">LAUNCH</div>
 
       <div class="gameboy-wrapper" id="gameboyWrapper">
-        <img
-          class="gameboy-frame"
-          src="assets/imgs/gameboy.png"
-          alt="gameboy"
-        />
+        <img class="gameboy-frame colored layer-back" src="assets/imgs/gameboy-colored.png" alt="" />
+        <img class="gameboy-frame mono layer-front" id="gbMono" src="assets/imgs/gameboy.png" alt="gameboy" />
 
-        <button
-          class="reset-btn hidden"
-          id="resetBtn"
-          title="Reset System"
-        ></button>
-        <button
-          class="action-btn"
-          id="actionBtn"
-          title="Click to start!"
-        ></button>
+        <button class="reset-btn hidden" id="resetBtn" title="Reset System"></button>
+        <button class="action-btn" id="actionBtn" title="Click to start!"></button>
 
         <div class="screen" id="screen">
-          <img class="cloud cloud-left" src="assets/imgs/cloud.png" alt="" />
-          <img class="cloud cloud-right" src="assets/imgs/cloud.png" alt="" />
+          <img class="cloud cloud-left colored layer-back" src="assets/imgs/cloud-colored.png" alt="" />
+          <img class="cloud cloud-left mono layer-front" id="cloudL" src="assets/imgs/cloud.png" alt="" />
+          
+          <img class="cloud cloud-right colored layer-back" src="assets/imgs/cloud-colored.png" alt="" />
+          <img class="cloud cloud-right mono layer-front" id="cloudR" src="assets/imgs/cloud.png" alt="" />
 
-          <img
-            class="bug bug-1"
-            id="bug1"
-            src="assets/imgs/bug.png"
-            alt="bug"
-          />
-          <img
-            class="bug bug-2"
-            id="bug2"
-            src="assets/imgs/bug.png"
-            alt="bug"
-          />
-          <img
-            class="bug bug-3"
-            id="bug3"
-            src="assets/imgs/bug.png"
-            alt="bug"
-          />
+          <img class="bug bug-1" id="bug1" src="assets/imgs/bug.png" alt="bug" />
+          <img class="bug bug-2" id="bug2" src="assets/imgs/bug.png" alt="bug" />
+          <img class="bug bug-3" id="bug3" src="assets/imgs/bug.png" alt="bug" />
 
-          <img
-            class="explode explode-1 hidden"
-            id="explode1"
-            src="assets/imgs/explode.png"
-            alt="explode"
-          />
-          <img
-            class="explode explode-2 hidden"
-            id="explode2"
-            src="assets/imgs/explode.png"
-            alt="explode"
-          />
-          <img
-            class="explode explode-3 hidden"
-            id="explode3"
-            src="assets/imgs/explode.png"
-            alt="explode"
-          />
+          <img class="explode explode-1 hidden" id="explode1" src="assets/imgs/explode.png" alt="explode" />
+          <img class="explode explode-2 hidden" id="explode2" src="assets/imgs/explode.png" alt="explode" />
+          <img class="explode explode-3 hidden" id="explode3" src="assets/imgs/explode.png" alt="explode" />
 
-          <img
-            class="hit hidden"
-            id="hit"
-            src="assets/imgs/hit.png"
-            alt="hit"
-          />
+          <img class="hit hidden" id="hit" src="assets/imgs/hit.png" alt="hit" />
 
-          <img
-            class="plane"
-            id="plane"
-            src="assets/imgs/plane.png"
-            alt="plane"
-          />
+          <img class="plane colored layer-back" src="assets/imgs/plane-colored.png" alt="" />
+          <img class="plane mono layer-front" id="plane" src="assets/imgs/plane.png" alt="plane" />
         </div>
       </div>
     </div>

@@ -3,6 +3,7 @@
   src: url("assets/fonts/Silkscreen-Regular.ttf") format("truetype");
   font-weight: 400;
 }
+
 @font-face {
   font-family: "Silkscreen";
   src: url("assets/fonts/Silkscreen-Bold.ttf") format("truetype");
@@ -23,8 +24,15 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+  width: 100vw;
+  margin: 0;
   font-family: "Silkscreen", monospace;
   overflow: hidden;
+  transition: background-color 1s ease;
+}
+
+body.succeed-bg {
+  background-color: #d68fb8;
 }
 
 .scene {
@@ -33,6 +41,7 @@ body {
   align-items: center;
   gap: 0;
   user-select: none;
+  width: 100%;
 }
 
 .phase-text {
@@ -44,12 +53,17 @@ body {
   text-align: center;
   margin-bottom: 12px;
   image-rendering: pixelated;
-  transition: opacity 0.12s;
+  transition: opacity 0.12s, color 1s ease;
+}
+
+.phase-text.succeed-text {
+  color: #3c42c4;
 }
 
 .gameboy-wrapper {
   position: relative;
-  width: 414px;
+  width: 100%;
+  max-width: 450px;
 }
 
 .gameboy-frame {
@@ -58,13 +72,37 @@ body {
   display: block;
   image-rendering: pixelated;
   -ms-interpolation-mode: nearest-neighbor;
+}
+
+.gameboy-frame.layer-back {
+  top: 0;
+  left: 0;
+}
+
+.layer-front {
   position: relative;
   z-index: 5;
+  transition: opacity 1s ease;
+}
+
+.layer-back {
+  position: absolute;
+  z-index: 4;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.layer-back.fade-in {
+  opacity: 1;
+}
+
+.layer-front.fade-out {
+  opacity: 0;
 }
 
 .action-btn {
   position: absolute;
-  top:55%;
+  top: 55%;
   right: 10%;
   width: 15%;
   height: 12%;
@@ -106,7 +144,6 @@ body {
   background: rgba(255, 255, 255, 0.15);
 }
 
-
 .shake-hard {
   animation: shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 }
@@ -133,14 +170,19 @@ body {
 
 .screen {
   position: absolute;
-  top: 10%;
-  left: 15%;
-  width: 68%;
-  height: 40%;
+  top: 9.5%;
+  left: 10%; 
+  width: 80%;
+  height: 39%;
   overflow: hidden;
   image-rendering: pixelated;
-  background-color: #e8ede8;
+  background-color: transparent;
+  transition: background-color 1s ease;
   z-index: 1;
+}
+
+.screen.succeed-screen {
+  background-color: #6e51c8;
 }
 
 .cloud {
@@ -148,6 +190,14 @@ body {
   width: 30%;
   image-rendering: pixelated;
   opacity: 0.6;
+}
+
+.cloud.colored {
+  opacity: 0; 
+}
+
+.cloud.colored.fade-in {
+  opacity: 1; 
 }
 
 .cloud-left {
@@ -174,6 +224,7 @@ body {
   top: -30%; 
   transition: top 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
   pointer-events: none;
+  z-index: 6;
 }
 
 .bug-1.show { top: 20%; opacity: 1; }
@@ -217,6 +268,7 @@ body {
 .explode {
   position: absolute;
   image-rendering: pixelated;
+  z-index: 6;
 }
 
 .explode-1 { width: 15%; top: 20%; left: 20%; }
@@ -237,7 +289,14 @@ body {
   left: 50%;
   transform: translateX(-50%);
   animation: planeBob 1.8s ease-in-out infinite;
-  transition: bottom 0.8s cubic-bezier(0.45, 0.05, 0.55, 0.95); 
+}
+
+img.plane.mono {
+  transition: bottom 0.8s cubic-bezier(0.45, 0.05, 0.55, 0.95), opacity 1s ease; 
+}
+
+img.plane.colored {
+  transition: bottom 0.8s cubic-bezier(0.45, 0.05, 0.55, 0.95), opacity 1s ease; 
 }
 
 .plane.slide-out {
@@ -256,6 +315,7 @@ body {
   left: 50%;
   bottom: 12%;
   transform: translateX(-50%);
+  z-index: 6;
 }
 
 .hidden {

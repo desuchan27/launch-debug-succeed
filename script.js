@@ -14,7 +14,10 @@ const explodeEls = [
 ];
 const hitEl = document.getElementById("hit");
 const screen = document.getElementById("screen");
-const plane = document.getElementById("plane");
+const planeEls = document.querySelectorAll(".plane");
+const monoEls = document.querySelectorAll(".mono");
+const coloredEls = document.querySelectorAll(".colored");
+const cloudEls = document.querySelectorAll(".cloud");
 
 let state = "launch";
 
@@ -26,8 +29,12 @@ function setPhase(text) {
   }, 150);
 }
 
-
 actionBtn.addEventListener("click", () => {
+  if (state === "succeed") {
+    resetBtn.click();
+    return;
+  }
+  
   if (state !== "launch") return;
   state = "debug";
 
@@ -35,12 +42,10 @@ actionBtn.addEventListener("click", () => {
   resetBtn.classList.add("hidden"); 
   setPhase("DEBUG");
 
-  document.querySelector(".cloud-left").classList.add("looping");
-  document.querySelector(".cloud-right").classList.add("looping");
+  cloudEls.forEach(c => c.classList.add("looping"));
 
   fireHitSequence();
 });
-
 
 resetBtn.addEventListener("click", () => {
   if (state !== "succeed") return; 
@@ -48,12 +53,18 @@ resetBtn.addEventListener("click", () => {
   gameboyWrapper.classList.add("shake-hard");
   screen.classList.add("glitch-flash");
 
-
   setPhase("LAUNCH");
 
+  document.body.classList.remove("succeed-bg");
+  phaseText.classList.remove("succeed-text");
+  monoEls.forEach(el => el.classList.remove("fade-out"));
+  coloredEls.forEach(el => el.classList.remove("fade-in"));
+  screen.classList.remove("succeed-screen");
 
-  plane.style.transition = 'none';
-  plane.classList.remove("slide-out");
+  planeEls.forEach(p => {
+    p.style.transition = 'none';
+    p.classList.remove("slide-out");
+  });
   
   bugEls.forEach(b => {
     b.style.transition = 'none'; 
@@ -65,7 +76,7 @@ resetBtn.addEventListener("click", () => {
     gameboyWrapper.classList.remove("shake-hard");
     screen.classList.remove("glitch-flash");
     
-    plane.style.transition = '';
+    planeEls.forEach(p => p.style.transition = '');
     bugEls.forEach(b => b.style.transition = '');
     
     state = "launch";
@@ -96,7 +107,7 @@ function fireHitSequence() {
   hitEl.style.bottom = pauseBottom + "px";
 
   setTimeout(() => {
-    plane.classList.add("slide-out");
+    planeEls.forEach(p => p.classList.add("slide-out"));
 
     const cloudLoopDelay = 2000;
 
@@ -147,16 +158,22 @@ function showExplode() {
       });
     }, 520);
 
-    plane.classList.remove("slide-out");
+    planeEls.forEach(p => p.classList.remove("slide-out"));
 
     setTimeout(() => {
-      document.querySelector(".cloud-left").classList.remove("looping");
-      document.querySelector(".cloud-right").classList.remove("looping");
+      cloudEls.forEach(c => c.classList.remove("looping"));
 
       state = "succeed";
       setPhase("SUCCEED");
       
+      document.body.classList.add("succeed-bg");
+      phaseText.classList.add("succeed-text");
+      monoEls.forEach(el => el.classList.add("fade-out"));
+      coloredEls.forEach(el => el.classList.add("fade-in"));
+      screen.classList.add("succeed-screen");
+      
       resetBtn.classList.remove("hidden");
+      actionBtn.disabled = false;
       
     }, 800);
   }, 600);
